@@ -5,7 +5,7 @@ require 'open-uri'
 puts 'Removing the restaurants...'
 Restaurant.destroy_all
 
-CHEFS = %w[Alan Aliia Alvin Andres Barry Caitlyn Dennis Devi Efren Gabrielle Gary George Horace James Jovon Kai Karthika Kostas Lili Lisa Mana Misako Naoki Noemi Nozomu PJ Ritsuki Vincent]
+CHEFS = %w[Justin Syrene Rashad Miho Raecine Eduard Megumi Taka Jane Sho Laurice Martin Osama Vincent Tiger]
 CATEGORIES = %W[burger burgers ramen sushi desserts healthy kebabs pizza tacos sandwiches dumplings soup curry rice pasta steakhouse vegan bakery juice salads seafood brunch wings cafe bbq deli pies buffet pub brasserie shakes creamery grill]
 
 def get_category(name)
