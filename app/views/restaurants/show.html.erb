@@ -1,0 +1,44 @@
+<div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(http://source.unsplash.com/featured/?<%= @restaurant.category&.downcase || 'food' %>&<%= rand(1000) %>/800x333);">
+  <div class="container">
+  </div>
+</div>
+<div class="container mt-2">
+  <div class="row justify-content-around">
+    <div class="col-12 col-sm-8">
+      <p>
+        <%= link_to '< Restaurants', restaurants_path, class: 'btn-light opacity-25 text-decoration-none' %>
+      </p>
+      <div class="d-flex align-items-center">
+        <h1 class="m-0"><%= @restaurant.name %></h1>
+        <p class="m-0 ms-2" style="font-size: 0.8em">
+          <% rating = @restaurant.rating || rand(1..5) %>
+          <% rating.times do %>
+            <i class="fas fa-star"></i>
+          <% end %>
+          <% (5 - rating).times do %>
+            <i class="far fa-star"></i>
+          <% end %>
+        </p>
+      </div>
+      <p class="fw-lighter opacity-75 mt-2"><%= @restaurant.description  %></p>
+      <h3>Reviews</h3>
+      <ul>
+        <% if @restaurant.reviews.any? %>
+          <% @restaurant.reviews.each do |review| %>
+            <li>
+              <%= review.content %>
+              <small class='text-300'><%= review.created_at.strftime('%b %d, %Y') %></small>
+              <%= link_to 'x', review_path(review), data: { turbo_method: :delete, turbo_confirm: "Delete review for #{@restaurant.name}?"} %>
+            </li>
+          <% end %>
+        <% else %>
+          <li>No reviews yet.</li>
+        <% end %>
+        <%= link_to 'Leave Review', new_restaurant_review_path(@restaurant), class: 'btn btn-primary'  %>
+      </ul>
+    </div>
+    <div class="col-12 col-sm-4 mt-5">
+      <%= render 'restaurants/side_info' %>
+    </p>
+  </div>
+</div>
