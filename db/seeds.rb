@@ -20,7 +20,7 @@ addresses = YAML.load(serialized_addresses)
 puts "Creating #{CHEFS.count} Restaurants..."
 CHEFS.shuffle.each do |name|
   restaurant_name = Faker::Restaurant.unique.name
-  Restaurant.create!(
+  restaurant = Restaurant.new(
     name: "#{name}'s #{restaurant_name}",
     address: addresses.sample,
     rating: rand(1..5),
@@ -28,5 +28,7 @@ CHEFS.shuffle.each do |name|
     category: get_category(restaurant_name),
     chef_name: name
   )
+  restaurant.user = User.all.sample
+  restaurant.save!
 end
 puts "...created #{Restaurant.count} restaurants"

@@ -28,6 +28,12 @@
   grid-gap: 16px;
 }
 
+.avatar-card {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+}
+
 // Smallest device
 @media (min-width: 100px) and (max-width: 575px) {
   .cards {

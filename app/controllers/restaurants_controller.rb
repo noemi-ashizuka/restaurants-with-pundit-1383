@@ -12,7 +12,7 @@ class RestaurantsController < ApplicationController
 
   def index
     @restaurant = Restaurant.new
-    @restaurants = Restaurant.all
+    @restaurants = policy_scope(Restaurant)
 
     @markers = @restaurants.geocoded.map do |restaurant|
       {
@@ -27,6 +27,7 @@ class RestaurantsController < ApplicationController
   def show
     # params is pulling the ID from the url
     @restaurant = Restaurant.find(params[:id])
+    authorize @restaurant
   end
 
   def new
@@ -37,6 +38,8 @@ class RestaurantsController < ApplicationController
   # this does not have a view
   def create
     @restaurant = Restaurant.new(restaurant_params)
+    @restaurant.user = current_user
+    authorize @restaurant
     if @restaurant.save
       respond_to do |format|
         format.html { redirect_to restaurants_path }
@@ -58,11 +61,13 @@ class RestaurantsController < ApplicationController
   def edit
     # This is for the form
     @restaurant = Restaurant.find(params[:id])
+    authorize @restaurant
   end
 
   # this does not have a view
   def update
     @restaurant = Restaurant.find(params[:id])
+    authorize @restaurant
     if @restaurant.update(restaurant_params)
       redirect_to restaurant_path(@restaurant)
     else
@@ -74,6 +79,7 @@ class RestaurantsController < ApplicationController
   def destroy
     @restaurant = Restaurant.find(params[:id])
     @restaurant.destroy
+    authorize @restaurant
     redirect_to restaurants_path, status: :see_other
   end
 
